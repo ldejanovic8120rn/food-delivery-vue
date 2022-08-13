@@ -1,32 +1,54 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <div>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar-brand to="/">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6KBzam0Z3DrFxVJ19kC-kRB3OA039fdr9zg&usqp=CAU"
+            alt="Kitten" width="40px" height="40px">
+        </b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item to="/">Home</b-nav-item>
+            <b-nav-item to="/restaurants">Restaurants</b-nav-item>
+            <b-nav-item to="/about">About</b-nav-item>
+            <b-nav-item to="/chart">
+              <b-icon icon="cart3"></b-icon>
+            </b-nav-item>
+
+          </b-navbar-nav>
+
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item v-if="!token" to="/register">Register</b-nav-item>
+            <b-nav-item v-if="!token" to="/login">Log In</b-nav-item>
+            <b-nav-item v-else @click="logout()">Log Out</b-nav-item>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+    </div>
+
+    <router-view class="stranica" />
   </div>
 </template>
 
+<script>
+
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    padding-bottom: 10px;
+  }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .stranica {
+    width: 80%;
+    margin-left: 10%;
+  }
 </style>
