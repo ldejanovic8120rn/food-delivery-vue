@@ -22,7 +22,7 @@
       </b-row>
     </b-container>
 
-    <b-container fluid class="p-4 bg-dark">
+    <b-container fluid class="p-4 bg-info">
       <b-row>
         <b-col>
           <b-img thumbnail fluid
@@ -40,6 +40,8 @@
         </b-col>
       </b-row>
     </b-container>
+
+    <h3>Are you hungry?</h3>
   </div>
 </template>
 
@@ -58,5 +60,7 @@
 
 
 <style>
-
+  h3 {
+    padding-top: 20px;
+  }
 </style>
