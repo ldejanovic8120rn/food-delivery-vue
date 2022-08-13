@@ -34,7 +34,41 @@
 </template>
 
 <script>
+  import { mapActions, mapState, mapMutations } from 'vuex';
 
+  export default {
+    name: 'App',
+
+    computed: {
+      ...mapState([
+        'token'
+      ])
+    },
+
+    mounted() {
+      if (localStorage.token) {
+        this.setToken(localStorage.token);
+      }
+    },
+
+    methods: {
+      ...mapMutations([
+        'removeToken',
+        'setToken'
+      ]),
+
+
+      logout() {
+        this.removeToken();
+      }
+    },
+
+    sockets: {
+      error(err) {
+        alert(err);
+      }
+    }
+  }
 </script>
 
 <style>
