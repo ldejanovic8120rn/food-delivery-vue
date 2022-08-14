@@ -170,4 +170,40 @@
     color: rgba(0, 0, 0, 0.5);
   }
 
+  @media only screen and (max-width: 991px) {
+
+    .contact_info_item {
+      width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .contact_info_item:last-child {
+      margin-bottom: 0px;
+    }
+
+  }
+
+  @media only screen and (max-width: 767px) {
+
+    .input_field {
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    .input_field:last-child {
+      margin-bottom: 0px;
+    }
+  }
+
+
+  @media only screen and (max-width: 575px) {
+
+    .contact_submit_button {
+      font-size: 13px;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+  }
+
 </style>
