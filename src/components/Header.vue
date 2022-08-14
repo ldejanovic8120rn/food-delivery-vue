@@ -19,8 +19,12 @@
 </script>
 
 <style scoped>
-.naslov {
-    padding-top: 15px;
-    margin-bottom: 25px;
-}
+        hr {
+            border-color: slategray;
+            border-width: 2px;
+        }
+    .naslov {
+        padding-top: 15px;
+        margin-bottom: 25px;
+    }
 </style>

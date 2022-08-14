@@ -10,7 +10,7 @@
                 </b-col>
                 <b-col class="m-4">
                     <b-row class="p-1">
-                        <h5>Name: {{restaurant.name}}</h5>
+                        <h4><b>{{restaurant.name}}</b></h4>
                     </b-row>
                     <b-row class="p-1">
                         <h5>Kitchen: {{restaurant.kitchen}}</h5>
