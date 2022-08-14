@@ -23,6 +23,10 @@ export default new Vuex.Store({
       localStorage.token = '';
     },
 
+    setRestaurants(state, restaurants) {
+      state.restaurants = restaurants;
+    },
+
   },
   actions: {
 
@@ -36,6 +40,7 @@ export default new Vuex.Store({
     },
 
     login({ commit }, obj) {
+      console.log("LOGIN");
       fetch('http://127.0.0.1:8082/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -46,8 +51,25 @@ export default new Vuex.Store({
             alert(tkn.msg);
           } 
           else {
-            commit('setToken', tkn.token)
+            commit('setToken', tkn.token);
           }
+        });
+    },
+
+    fetchRestaurants({ commit }) {
+      console.log("DOHVATAMO RESTORANE");
+
+      fetch('http://localhost:8081/admin/restaurants', {
+        method: 'GET',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MDUwNTk5N30.fQ71UpVC3hUl3kuQsFscSs0D-Qw00CqsoPrfqshRiAo"
+        }
+      }).then(res => res.json())
+        .then(restaurants => {
+            console.log("RESTORANI: ")
+            console.log(restaurants)
+            commit('setRestaurants', restaurants);
         });
     },
 

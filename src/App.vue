@@ -46,12 +46,18 @@
     },
 
     mounted() {
+      this.fetchRestaurants();
+
       if (localStorage.token) {
         this.setToken(localStorage.token);
       }
     },
 
     methods: {
+      ...mapActions([
+        'fetchRestaurants'
+      ]),
+
       ...mapMutations([
         'removeToken',
         'setToken'
