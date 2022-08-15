@@ -17,48 +17,48 @@
 
 <script>
 
-import { mapActions, mapState } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
 
-export default {
-    name: 'Comments',
+    export default {
+        name: 'Comments',
 
-    props: {
-        restaurant: Object
-    },
+        props: {
+            restaurant: Object
+        },
 
-    data() {
-        return {
-            content: ''
+        data() {
+            return {
+                content: ''
+            }
+        },
+
+        computed: {
+            ...mapState([
+                'token'
+            ])
+        },
+
+        methods: {
+            onSubmit() {
+                this.$socket.emit('comment', { content: this.content, restaurant_id: this.restaurant.id, token: this.token });
+                this.content = '';
+            }
         }
-    },
-
-    computed: {
-        ...mapState([
-            'token'
-        ])
-    },
-
-    methods: {
-        // onSubmit() {
-        //     this.$socket.emit('comment', { body: this.comment, artId: this.image.objectID, token: this.token });
-        //     this.comment = '';
-        // }
     }
-}
 
 </script>
 
 <style scoped>
-.card {
-    margin-top: 10px;
-    text-align: left;
-}
+    .card {
+        margin-top: 10px;
+        text-align: left;
+    }
 
-.card-title {
-    margin-bottom: 0px;
-}
+    .card-title {
+        margin-bottom: 0px;
+    }
 
-.card-body {
-    padding-bottom: 5px;
-}
+    .card-body {
+        padding-bottom: 5px;
+    }
 </style>

@@ -30,6 +30,11 @@ export default new Vuex.Store({
     setCommentsToRestaurant(state, obj) {
       const restaurant = state.restaurants.filter(r => r.id == obj.id)[0];
       restaurant['comments'] = obj.comments;
+    },
+
+    addComment(state, obj) {
+      const restaurant = state.restaurants.filter(r => r.id == obj.restaurant_id)[0];
+      restaurant['comments'].push(obj.comment);
     }
 
   },
@@ -92,6 +97,11 @@ export default new Vuex.Store({
           reject(Error("Wrong restaurant id"));
         }
       })
+    },
+
+    socket_comment({ commit }, cmt) {
+      const comment = JSON.parse(cmt);
+      commit('addComment', { restaurant_id: comment.restaurant_id, comment: comment });
     }
   },
   modules: {

@@ -13,7 +13,7 @@ Vue.use(IconsPlugin);
 
 Vue.use(new VueSocketIO({
   debug: false,
-  connection: 'ws://127.0.0.1:8081',
+  connection: 'ws://localhost:8081',
   vuex: {
     store,
     actionPrefix: 'socket_',

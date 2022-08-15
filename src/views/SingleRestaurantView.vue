@@ -2,7 +2,7 @@
     <div class="single">
         <Header :subtitle="subtitle" />
         <Food v-for="food in restaurant.foods" :key="food.id" :food="food" />
-        <Comments :restaurant="restaurant"/>
+        <Comments v-if="restaurant" :restaurant="restaurant"/>
     </div>
 </template>
 
