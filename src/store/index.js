@@ -57,22 +57,36 @@ export default new Vuex.Store({
     },
 
     fetchRestaurants({ commit }) {
-      console.log("DOHVATAMO RESTORANE");
-
       fetch('http://localhost:8081/admin/restaurants', {
         method: 'GET',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6IkFETUlOIiwidXNlcm5hbWUiOiJhZG1pbiIsImlhdCI6MTY2MDUwNTk5N30.fQ71UpVC3hUl3kuQsFscSs0D-Qw00CqsoPrfqshRiAo"
-        }
+        headers: { 'Content-Type': 'application/json' }
       }).then(res => res.json())
         .then(restaurants => {
-            console.log("RESTORANI: ")
-            console.log(restaurants)
             commit('setRestaurants', restaurants);
         });
     },
 
+    getRestaurantById({ commit, state }, id) {
+      return new Promise( (resolve, reject) => {
+        console.log("ID");
+        console.log(id);
+        const restaurant = state.restaurants.filter(r => r.id == id)[0];
+        console.log(restaurant);
+
+        if (restaurant) {
+          resolve(restaurant);
+        }
+        else {
+          fetch(`http://localhost:8081/admin/restaurants/${id}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+          }).then(res => res.json())
+            .then(restaurant => {
+              resolve(restaurant);
+            });
+        }
+      })
+    }
   },
   modules: {
   }

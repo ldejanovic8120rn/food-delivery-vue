@@ -28,7 +28,7 @@
                         <h5>Delivery price: {{restaurant.delivery_price}}</h5>
                     </b-row>
                     <b-row class="p-1">
-                        <b-button pill variant="info">Menu</b-button>
+                        <b-button @click="singleRestaurant" pill variant="info">More</b-button>
                     </b-row>
                 </b-col>
             </b-row>
@@ -40,10 +40,18 @@
 <script>
 
     export default {
-        name: 'Header',
+        name: 'Restaurant',
 
         props: {
             restaurant: Object
+        },
+
+        methods: {
+            singleRestaurant(e) {
+                e.preventDefault();
+
+                this.$router.push({ name: 'SingleRestaurant', params: { id: this.restaurant.id } });
+            }
         }
     }
 
