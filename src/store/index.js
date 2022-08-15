@@ -7,10 +7,13 @@ export default new Vuex.Store({
   state: {
     token: '',
     restaurants: [],
-    chartItems: []
+    chartItems: [],
+    currentRestaurant: null
   },
+
   getters: {
   },
+
   mutations: {
 
     setToken(state, token) {
@@ -32,12 +35,19 @@ export default new Vuex.Store({
       restaurant['comments'] = obj.comments;
     },
 
+    setCurrentRestaurant(state, restaurant) {
+      state.currentRestaurant = restaurant;
+    },
+
     addComment(state, obj) {
       const restaurant = state.restaurants.filter(r => r.id == obj.restaurant_id)[0];
       restaurant['comments'].push(obj.comment);
+      state.currentRestaurant.name = "NOVO IME"
+      state.currentRestaurant.comments.push(obj.comment)
     }
 
   },
+
   actions: {
 
     register({ commit }, obj) {
@@ -76,27 +86,25 @@ export default new Vuex.Store({
         });
     },
 
-    getRestaurantById({ commit, state }, id) {
-      return new Promise( (resolve, reject) => {
-        const restaurant = state.restaurants.filter(r => r.id == id)[0];
+    fetchCommentsByRestaurant({ commit, state }, id) {
+      const restaurant = state.restaurants.filter(r => r.id == id)[0];
 
-        if (restaurant && restaurant['comments']) {
-          resolve(restaurant);
-        }
-        else if(restaurant){
-          fetch(`http://localhost:8081/admin/comments/${id}`, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-          }).then(res => res.json())
-            .then(comments => {
-              commit('setCommentsToRestaurant', {id: id, comments: comments});
-              resolve(restaurant);
-            });
-        }
-        else {
-          reject(Error("Wrong restaurant id"));
-        }
-      })
+      if (restaurant && restaurant['comments']) {
+        commit('setCurrentRestaurant', restaurant);
+      }
+      else if(restaurant) {
+        fetch(`http://localhost:8081/admin/comments/${id}`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' }
+        }).then(res => res.json())
+          .then(comments => {
+            commit('setCommentsToRestaurant', {id: id, comments: comments});
+            commit('setCurrentRestaurant', restaurant);
+          });
+      }
+      else {
+        commit('setCurrentRestaurant', null);
+      }
     },
 
     socket_comment({ commit }, cmt) {
@@ -104,6 +112,7 @@ export default new Vuex.Store({
       commit('addComment', { restaurant_id: comment.restaurant_id, comment: comment });
     }
   },
+
   modules: {
   }
 })

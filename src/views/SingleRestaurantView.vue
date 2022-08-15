@@ -1,14 +1,14 @@
 <template>
     <div class="single">
-        <Header :subtitle="subtitle" />
-        <Food v-for="food in restaurant.foods" :key="food.id" :food="food" />
-        <Comments v-if="restaurant" :restaurant="restaurant"/>
+        <Header v-if="currentRestaurant" :subtitle="currentRestaurant.name" />
+        <Food v-if="currentRestaurant" />
+        <Comments v-if="currentRestaurant" />
     </div>
 </template>
 
 <script>
     import Header from '@/components/Header.vue';
-    import { mapActions } from 'vuex';
+    import { mapActions, mapState } from 'vuex';
     import Food from '@/components/Food.vue';
     import Comments from '../components/Comments.vue';
 
@@ -21,29 +21,24 @@
             Comments
         },
 
-        data() {
-            return {
-                restaurant: null,
-                subtitle: ''
-            }
+        computed: {
+            ...mapState([
+                'currentRestaurant'
+            ])
         },
 
         mounted() {
             setTimeout(() => {
-                this.getRestaurantById(this.$route.params.id)
-                    .then(r => {
-                        this.restaurant = r;
-                        this.subtitle = this.restaurant.name;
-                    })
-                    .catch(err => alert(err));
+                this.fetchCommentsByRestaurant(this.$route.params.id);    
             }, 100)
+            
             
         },
 
 
         methods: {
             ...mapActions([
-                'getRestaurantById'
+                'fetchCommentsByRestaurant'
             ])
         },
 
