@@ -41,9 +41,14 @@ export default new Vuex.Store({
 
     addComment(state, obj) {
       const restaurant = state.restaurants.filter(r => r.id == obj.restaurant_id)[0];
-      restaurant['comments'].push(obj.comment);
-      state.currentRestaurant.name = "NOVO IME"
-      state.currentRestaurant.comments.push(obj.comment)
+      
+      if (state.currentRestaurant.id == restaurant.id) {
+        state.currentRestaurant.comments.push(obj.comment)
+      }
+      else {
+        restaurant['comments'].push(obj.comment);
+      }
+      
     }
 
   },
