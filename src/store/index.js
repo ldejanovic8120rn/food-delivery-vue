@@ -27,6 +27,11 @@ export default new Vuex.Store({
       state.restaurants = restaurants;
     },
 
+    setCommentsToRestaurant(state, obj) {
+      const restaurant = state.restaurants.filter(r => r.id == obj.id)[0];
+      restaurant['comments'] = obj.comments;
+    }
+
   },
   actions: {
 
@@ -68,22 +73,23 @@ export default new Vuex.Store({
 
     getRestaurantById({ commit, state }, id) {
       return new Promise( (resolve, reject) => {
-        console.log("ID");
-        console.log(id);
         const restaurant = state.restaurants.filter(r => r.id == id)[0];
-        console.log(restaurant);
 
-        if (restaurant) {
+        if (restaurant && restaurant['comments']) {
           resolve(restaurant);
         }
-        else {
-          fetch(`http://localhost:8081/admin/restaurants/${id}`, {
+        else if(restaurant){
+          fetch(`http://localhost:8081/admin/comments/${id}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
           }).then(res => res.json())
-            .then(restaurant => {
+            .then(comments => {
+              commit('setCommentsToRestaurant', {id: id, comments: comments});
               resolve(restaurant);
             });
+        }
+        else {
+          reject(Error("Wrong restaurant id"));
         }
       })
     }

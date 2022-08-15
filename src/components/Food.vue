@@ -48,6 +48,6 @@
 
 <style scoped>
     .restaurant {
-        width: fit-content;
+        width: 50%;
     }
 </style>

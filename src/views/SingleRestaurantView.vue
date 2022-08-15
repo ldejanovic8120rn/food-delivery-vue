@@ -2,7 +2,7 @@
     <div class="single">
         <Header :subtitle="subtitle" />
         <Food v-for="food in restaurant.foods" :key="food.id" :food="food" />
-        <!-- <Comments /> -->
+        <Comments :restaurant="restaurant"/>
     </div>
 </template>
 
@@ -10,14 +10,15 @@
     import Header from '@/components/Header.vue';
     import { mapActions } from 'vuex';
     import Food from '@/components/Food.vue';
-    // import Comments from '../components/Comments.vue';
+    import Comments from '../components/Comments.vue';
 
     export default {
         name: 'SingleRestaurantView',
 
         components: {
             Header,
-            Food
+            Food,
+            Comments
         },
 
         data() {
@@ -28,12 +29,15 @@
         },
 
         mounted() {
-            this.getRestaurantById(this.$route.params.id)
-                .then(r => {
-                    this.restaurant = r;
-                    this.subtitle = this.restaurant.name;
-                })
-                .catch(err => alert(err));
+            setTimeout(() => {
+                this.getRestaurantById(this.$route.params.id)
+                    .then(r => {
+                        this.restaurant = r;
+                        this.subtitle = this.restaurant.name;
+                    })
+                    .catch(err => alert(err));
+            }, 100)
+            
         },
 
 
