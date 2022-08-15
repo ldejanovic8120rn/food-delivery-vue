@@ -8,7 +8,8 @@ export default new Vuex.Store({
     token: '',
     restaurants: [],
     chartItems: [],
-    currentRestaurant: null
+    currentRestaurant: null,
+    comments: []
   },
 
   getters: {
@@ -30,6 +31,10 @@ export default new Vuex.Store({
       state.restaurants = restaurants;
     },
 
+    setComments(state, comments) {
+      state.comments = comments;
+    },
+
     setCommentsToRestaurant(state, obj) {
       const restaurant = state.restaurants.filter(r => r.id == obj.id)[0];
       restaurant['comments'] = obj.comments;
@@ -40,14 +45,13 @@ export default new Vuex.Store({
     },
 
     addComment(state, obj) {
+      //automatski se doda i u comments
       const restaurant = state.restaurants.filter(r => r.id == obj.restaurant_id)[0];
-      
-      if (state.currentRestaurant.id == restaurant.id) {
-        state.currentRestaurant.comments.push(obj.comment)
-      }
-      else {
-        restaurant['comments'].push(obj.comment);
-      }
+      restaurant['comments'].push(obj.comment);
+
+      // if (state.currentRestaurant !== null && state.currentRestaurant.id == restaurant.id) {
+      //   state.comments.push(obj.comment);
+      // }
       
     }
 
@@ -96,6 +100,7 @@ export default new Vuex.Store({
 
       if (restaurant && restaurant['comments']) {
         commit('setCurrentRestaurant', restaurant);
+        commit('setComments', restaurant.comments);
       }
       else if(restaurant) {
         fetch(`http://localhost:8081/admin/comments/${id}`, {
@@ -105,6 +110,7 @@ export default new Vuex.Store({
           .then(comments => {
             commit('setCommentsToRestaurant', {id: id, comments: comments});
             commit('setCurrentRestaurant', restaurant);
+            commit('setComments', restaurant.comments);
           });
       }
       else {
