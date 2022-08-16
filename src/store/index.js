@@ -81,7 +81,7 @@ export default new Vuex.Store({
   actions: {
 
     register({ commit }, obj) {
-      fetch('http://127.0.0.1:8082/register', {
+      fetch('https://food-delivery-auth-service.herokuapp.com/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
@@ -90,7 +90,7 @@ export default new Vuex.Store({
     },
 
     login({ commit }, obj) {
-      fetch('http://127.0.0.1:8082/login', {
+      fetch('https://food-delivery-auth-service.herokuapp.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
@@ -106,7 +106,7 @@ export default new Vuex.Store({
     },
 
     fetchRestaurants({ commit }) {
-      fetch('http://localhost:8081/admin/restaurants', {
+      fetch('https://food-delivery-crud.herokuapp.com/admin/restaurants', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' }
       }).then(res => res.json())
@@ -123,7 +123,7 @@ export default new Vuex.Store({
         commit('setComments', restaurant.comments);
       }
       else if(restaurant) {
-        fetch(`http://localhost:8081/admin/comments/${id}`, {
+        fetch(`https://food-delivery-crud.herokuapp.com/admin/comments/${id}`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' }
         }).then(res => res.json())
