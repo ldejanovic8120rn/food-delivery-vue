@@ -4,7 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import RestaurantView from '../views/RestaurantView.vue'
 import AboutView from '../views/AboutView.vue'
 import SingleRestaurantView from '../views/SingleRestaurantView.vue'
-import ChartView from '../views/ChartView.vue'
+import CartView from '../views/CartView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 
@@ -30,9 +30,9 @@ const routes = [
   },
 
   {
-    path: '/chart',
-    name: 'Chart',
-    component: ChartView
+    path: '/cart',
+    name: 'Cart',
+    component: CartView
   },
 
   {

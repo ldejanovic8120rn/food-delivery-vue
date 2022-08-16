@@ -14,7 +14,7 @@
             <b-nav-item to="/">Home</b-nav-item>
             <b-nav-item to="/restaurants">Restaurants</b-nav-item>
             <b-nav-item to="/about">About</b-nav-item>
-            <b-nav-item to="/chart">
+            <b-nav-item to="/cart">
               <b-icon icon="cart3"></b-icon>
             </b-nav-item>
 

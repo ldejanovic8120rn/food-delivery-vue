@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     token: '',
     restaurants: [],
-    chartItems: [],
+    cartItems: [],
     currentRestaurant: null,
     comments: []
   },
@@ -53,6 +53,18 @@ export default new Vuex.Store({
       //   state.comments.push(obj.comment);
       // }
       
+    },
+
+    addCartItem(state, cart) {
+      state.cartItems.push(cart);
+    },
+
+    removeCartItem(state, cartId) {
+      const index = state.cartItems.findIndex(object => {
+        return object.id === cartId;
+      });
+
+      state.cartItems.splice(index, 1);
     }
 
   },

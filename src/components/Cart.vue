@@ -1,7 +1,7 @@
 <template>
-    <div class="root">
-        <div v-for="food in currentRestaurant.foods" :key="food.id" class="m-4">
-            <b-container class="bv-example-row border border-info rounded restaurant">
+    <div class="cart-component">
+        <div v-for="food in cartItems" :key="food.id" class="m-4">
+            <b-container class="bv-example-row border border-info rounded cart">
                 <b-row class="justify-content-md-center m-4">
                     <b-col class="m-4">
                         <b-row class="p-1">
@@ -20,12 +20,15 @@
                             <h5>Description: {{ food.description }}</h5>
                         </b-row>
                         <b-row class="p-1">
-                            <b-button @click="order(food)" pill variant="info">Order</b-button>
+                            <b-button @click="remove(food)" variant="white">
+                                <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
+                            </b-button>
                         </b-row>
                     </b-col>
                 </b-row>
             </b-container>
         </div>
+        <h4><b>Total: {{ total }} rsd</b></h4>
     </div>
 
 </template>
@@ -34,29 +37,45 @@
     import { mapMutations, mapState } from 'vuex';
 
     export default {
-        name: 'Food',
+        name: 'Cart',
+        
+        data() {
+            return {
+                total: 0
+            }
+        },
 
         computed: {
             ...mapState([
-                'currentRestaurant'
+                'cartItems'
             ])
+        },
+
+        mounted() {
+            this.total = 0;
+
+            this.cartItems.forEach(element => {
+                this.total += element.price
+            });
         },
 
         methods: {
             ...mapMutations([
-                'addCartItem',
+                'removeCartItem',
             ]),
 
-            order(food) {
-                this.addCartItem(food);
-            }
-        }
-    }
+            remove(cart) {
+                this.total -= cart.price
+                this.removeCartItem(cart.id);
+            },
+        },
 
+    }
 </script>
 
 <style scoped>
-    .restaurant {
+    .cart {
         width: 50%;
     }
+
 </style>
