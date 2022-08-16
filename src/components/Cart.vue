@@ -14,10 +14,13 @@
                             <h5>Portion: {{ food.portion }}</h5>
                         </b-row>
                         <b-row class="p-1">
-                            <h5>Price: {{ food.price }}</h5>
+                            <h5>Description: {{ food.description }}</h5>
                         </b-row>
                         <b-row class="p-1">
-                            <h5>Description: {{ food.description }}</h5>
+                            <h5>Count: {{ food.count }}</h5>
+                        </b-row>
+                        <b-row class="p-1">
+                            <h5>Price: {{ food.price * food.count }} rsd</h5>
                         </b-row>
                         <b-row class="p-1">
                             <b-button @click="remove(food)" variant="white">
@@ -55,7 +58,7 @@
             this.total = 0;
 
             this.cartItems.forEach(element => {
-                this.total += element.price
+                this.total += (element.price * element.count)
             });
         },
 
@@ -65,7 +68,7 @@
             ]),
 
             remove(cart) {
-                this.total -= cart.price
+                this.total -= (cart.price * cart.count);
                 this.removeCartItem(cart.id);
             },
         },

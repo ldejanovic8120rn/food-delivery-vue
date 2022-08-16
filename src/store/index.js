@@ -56,7 +56,16 @@ export default new Vuex.Store({
     },
 
     addCartItem(state, cart) {
-      state.cartItems.push(cart);
+      const item = state.cartItems.filter(c => c.id == cart.id)[0];
+
+      if(item) {
+        item.count += 1;
+      }
+      else {
+        cart.count = 1;
+        state.cartItems.push(cart);
+      }
+      
     },
 
     removeCartItem(state, cartId) {
@@ -81,7 +90,6 @@ export default new Vuex.Store({
     },
 
     login({ commit }, obj) {
-      console.log("LOGIN");
       fetch('http://127.0.0.1:8082/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
