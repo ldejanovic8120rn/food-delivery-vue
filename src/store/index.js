@@ -86,7 +86,17 @@ export default new Vuex.Store({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)
       }).then(res => res.json())
-        .then(tkn => commit('setToken', tkn.token));
+        .then(tkn => {
+          if(tkn.err) {
+            alert(tkn.err);
+          }
+          else if(tkn.message) {
+            alert(tkn.message)
+          }
+          else {
+            commit('setToken', tkn.token)
+          }
+        });
     },
 
     login({ commit }, obj) {

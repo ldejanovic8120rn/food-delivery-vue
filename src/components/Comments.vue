@@ -14,7 +14,7 @@
 
 
             <div v-for="comment in comments" :key="comment.id" class="m-4">
-                <b-container class="bv-example-row border border-info rounded-pill comment">
+                <b-container class="border border-info rounded-pill comment">
                     <b-row class="justify-content-md-center m-4">
                         <b-col class="m-4">
                             <b-row class="p-1">
@@ -65,14 +65,13 @@
 </script>
 
 <style scoped>
-    .comment {
-        width: 50%;
-    }
-
     .komentar {
         padding-top: 30px;
         padding-bottom: 10px;
-        width: 40%;
+    }
+
+    h4 {
+        color: chocolate;
     }
 
 </style>
